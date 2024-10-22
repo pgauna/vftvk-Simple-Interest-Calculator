@@ -1,5 +1,3 @@
-name: Azure Static Web Apps CI/CD
-
 on:
   push:
     branches:
@@ -25,8 +23,10 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: npm install
+      - name: Verify Permissions
+        run: chmod +x node_modules/.bin/vite
       - name: Build app
-        run: npm run build
+        run: npx vite build
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -50,3 +50,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_FLOWER_0E79A8D0F }}
           action: "close"
+
